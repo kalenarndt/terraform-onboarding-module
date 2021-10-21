@@ -28,6 +28,7 @@ variable "workspace_tags" {
   default    = []
 }
 
+
 ## VCS variables (existing VCS connection)
 variable "workspace_vcs_identifier" {
   description = "<organization>/<repository> address of repo"
@@ -85,4 +86,38 @@ variable "workspace_plan_access_emails" {
   description = "Emails for the plan users"
   type        = list(string)
   default     = []
+}
+
+
+
+
+## Kalen Additions
+variable "create_agents" {
+  type = bool
+  description = "(Optional) Conditional that allows for the creation of agent pools as well as an agent token"
+  default = false
+}
+
+variable "agent_pool_name" {
+  type = string
+  description = "(Optional) Name of the agent pool that will be created or used"
+  default = null
+}
+
+variable "workspace_agents" {
+  type = bool
+  description = "(Optional) Conditional that allows for the use of existing or new agents within a given workspace"
+  default = false
+}
+
+variable "workspace_auto_apply" {
+  type = string
+  description = "(Optional)  Setting if the workspace should automatically apply changes when a plan succeeds."
+  default = true
+}
+
+variable "agent_token_description" {
+  type = string
+  description = "(Optional) Description of the token that will be created"
+  default = null
 }
