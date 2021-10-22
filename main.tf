@@ -12,7 +12,7 @@ data "tfe_oauth_client" "this_client" {
 data "tfe_agent_pool" "this_pool" {
   count        = var.workspace_agents ? 1 : 0
   name         = var.agent_pool_name
-  organization = data.tfe_organization.this_org.id
+  organization = data.tfe_organization.this_org.name
 }
 
 ###################################################
