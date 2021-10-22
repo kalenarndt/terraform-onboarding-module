@@ -60,12 +60,12 @@ variable "variables" {
   default     = {}
 }
 
-# RBAC
-## Workspace owner (exising org user)
-variable "workspace_owner_email" {
-  description = "Email for the owner of the account"
-  type        = string
-}
+# # RBAC
+# ## Workspace owner (exising org user)
+# variable "workspace_owner_email" {
+#   description = "Email for the owner of the account"
+#   type        = string
+# }
 
 ## Additional read users (existing org user)
 variable "workspace_read_access_emails" {
