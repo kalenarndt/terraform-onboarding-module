@@ -50,68 +50,68 @@ resource "tfe_variable" "variables" {
 # RBAC
 ## Teams
 ### Workspace owner
-resource "tfe_team" "this_owners" {
-  name         = "${var.workspace_name}-owners"
-  organization = data.tfe_organization.this_org.name
-}
+# resource "tfe_team" "this_owners" {
+#   name         = "${var.workspace_name}-owners"
+#   organization = data.tfe_organization.this_org.name
+# }
 
-module "workspace_owner" {
-  source = "./modules/rbac_user"
+# module "workspace_owner" {
+#   source = "./modules/rbac_user"
 
-  organization     = data.tfe_organization.this_org.name
-  workspace_id     = tfe_workspace.this_ws.id
-  team_id          = tfe_team.this_owners.id
-  user_email       = var.workspace_owner_email
-  user_permissions = "admin"
-}
+#   organization     = data.tfe_organization.this_org.name
+#   workspace_id     = tfe_workspace.this_ws.id
+#   team_id          = tfe_team.this_owners.id
+#   user_email       = var.workspace_owner_email
+#   user_permissions = "admin"
+# }
 
-### Read access team
-resource "tfe_team" "this_read" {
-  name         = "${var.workspace_name}-read"
-  organization = data.tfe_organization.this_org.name
-}
+# ### Read access team
+# resource "tfe_team" "this_read" {
+#   name         = "${var.workspace_name}-read"
+#   organization = data.tfe_organization.this_org.name
+# }
 
-module "workspace_read" {
-  source = "./modules/rbac_user"
+# module "workspace_read" {
+#   source = "./modules/rbac_user"
 
-  for_each         = toset(var.workspace_read_access_emails)
-  organization     = data.tfe_organization.this_org.name
-  workspace_id     = tfe_workspace.this_ws.id
-  team_id          = tfe_team.this_read.id
-  user_email       = each.key
-  user_permissions = "read"
-}
+#   for_each         = toset(var.workspace_read_access_emails)
+#   organization     = data.tfe_organization.this_org.name
+#   workspace_id     = tfe_workspace.this_ws.id
+#   team_id          = tfe_team.this_read.id
+#   user_email       = each.key
+#   user_permissions = "read"
+# }
 
-### Write access team
-resource "tfe_team" "this_write" {
-  name         = "${var.workspace_name}-write"
-  organization = data.tfe_organization.this_org.name
-}
+# ### Write access team
+# resource "tfe_team" "this_write" {
+#   name         = "${var.workspace_name}-write"
+#   organization = data.tfe_organization.this_org.name
+# }
 
-module "workspace_write" {
-  source = "./modules/rbac_user"
+# module "workspace_write" {
+#   source = "./modules/rbac_user"
 
-  for_each         = toset(var.workspace_write_access_emails)
-  organization     = data.tfe_organization.this_org.name
-  workspace_id     = tfe_workspace.this_ws.id
-  team_id          = tfe_team.this_write.id
-  user_email       = each.key
-  user_permissions = "write"
-}
+#   for_each         = toset(var.workspace_write_access_emails)
+#   organization     = data.tfe_organization.this_org.name
+#   workspace_id     = tfe_workspace.this_ws.id
+#   team_id          = tfe_team.this_write.id
+#   user_email       = each.key
+#   user_permissions = "write"
+# }
 
-### Plan access team
-resource "tfe_team" "this_plan" {
-  name         = "${var.workspace_name}-plan"
-  organization = data.tfe_organization.this_org.name
-}
+# ### Plan access team
+# resource "tfe_team" "this_plan" {
+#   name         = "${var.workspace_name}-plan"
+#   organization = data.tfe_organization.this_org.name
+# }
 
-module "workspace_plan" {
-  source = "./modules/rbac_user"
+# module "workspace_plan" {
+#   source = "./modules/rbac_user"
 
-  for_each         = toset(var.workspace_plan_access_emails)
-  organization     = data.tfe_organization.this_org.name
-  workspace_id     = tfe_workspace.this_ws.id
-  team_id          = tfe_team.this_plan.id
-  user_email       = each.key
-  user_permissions = "plan"
-}
+#   for_each         = toset(var.workspace_plan_access_emails)
+#   organization     = data.tfe_organization.this_org.name
+#   workspace_id     = tfe_workspace.this_ws.id
+#   team_id          = tfe_team.this_plan.id
+#   user_email       = each.key
+#   user_permissions = "plan"
+# }

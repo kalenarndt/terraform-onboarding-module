@@ -110,3 +110,9 @@ variable "workspace_auto_apply" {
   description = "(Optional)  Setting if the workspace should automatically apply changes when a plan succeeds."
   default     = true
 }
+
+# variable "rbac" {
+#   type = bool
+#   description = "(Optional) Conditional that allows for RBAC policy to be created for the new workspaces"
+#   default = true
+# }
