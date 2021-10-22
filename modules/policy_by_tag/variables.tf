@@ -5,6 +5,6 @@ variable "organization" {
 
 variable "tags" {
   description = "Tags to search for to attach policy"
-  type        = list
+  type        = list(any)
   default     = ["onboarding"]
 }

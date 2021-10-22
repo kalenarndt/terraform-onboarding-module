@@ -10,8 +10,8 @@ data "tfe_oauth_client" "this_client" {
 }
 
 data "tfe_agent_pool" "this_pool" {
-  count = var.workspace_agents && var.create_agents == false ? 1 : 0
-  name = var.agent_pool_name
+  count        = var.workspace_agents ? 1 : 0
+  name         = var.agent_pool_name
   organization = data.tfe_organization.this_org.id
 }
 
@@ -26,25 +26,13 @@ resource "tfe_workspace" "this_ws" {
   working_directory = (var.workspace_vcs_directory == "root_directory" ? null : var.workspace_vcs_directory)
   queue_all_runs    = false
   auto_apply        = var.workspace_auto_apply
-  agent_pool_id     = var.workspace_agents != false ? data.tfe_agent_pool.this_pool[0].id : tfe_agent_pool.this_agent[0].id
+  agent_pool_id     = var.workspace_agents == true ? data.tfe_agent_pool.this_pool[0].id : null
 
   vcs_repo {
     identifier     = var.workspace_vcs_identifier
     branch         = (var.workspace_vcs_branch == "default_branch" ? null : var.workspace_vcs_branch)
     oauth_token_id = data.tfe_oauth_client.this_client.oauth_token_id
   }
-}
-
-resource "tfe_agent_pool" "this_agent" {
-  count  = var.create_agents && var.workspace_agents == true ? 1 : 0
-  name = var.agent_pool_name
-  organization = data.tfe_organization.this_org.id
-}
-
-resource "tfe_agent_token" "this_agent_token" {
-  count         = var.create_agents ? 1 : 0
-  agent_pool_id = tfe_agent_pool.this_agent[0].id
-  description = var.agent_token_description
 }
 
 ## Variables
