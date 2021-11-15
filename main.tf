@@ -4,11 +4,6 @@ data "tfe_organization" "this_org" {
   name = var.organization
 }
 
-## OAuth Token ID
-data "tfe_oauth_client" "this_client" {
-  oauth_client_id = var.workspace_oauth_id
-}
-
 data "tfe_agent_pool" "this_pool" {
   count        = var.workspace_agents ? 1 : 0
   name         = var.agent_pool_name
@@ -29,10 +24,15 @@ resource "tfe_workspace" "this_ws" {
   agent_pool_id     = var.workspace_agents == true ? data.tfe_agent_pool.this_pool[0].id : null
   execution_mode    = var.workspace_agents == true ? "agent" : "remote"
 
-  vcs_repo {
-    identifier     = var.workspace_vcs_identifier
-    branch         = (var.workspace_vcs_branch == "default_branch" ? null : var.workspace_vcs_branch)
-    oauth_token_id = data.tfe_oauth_client.this_client.oauth_token_id
+  dynamic "vcs_repo" {
+    for_each = lookup(var.vcs_repo, "identifier", null) == null ? [] : [var.vcs_repo]
+
+    content {
+      identifier         = lookup(vcs_repo.value, "identifier", null)
+      branch             = lookup(vcs_repo.value, "branch", null)
+      ingress_submodules = lookup(vcs_repo.value, "ingress_submodules", null)
+      oauth_token_id     = lookup(vcs_repo.value, "oauth_token_id", null)
+    }
   }
 }
 

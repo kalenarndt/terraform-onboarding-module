@@ -30,27 +30,21 @@ variable "workspace_tags" {
 
 
 ## VCS variables (existing VCS connection)
-variable "workspace_vcs_identifier" {
-  description = "<organization>/<repository> address of repo"
-  type        = string
-}
-
-variable "workspace_vcs_branch" {
-  description = "VCS branch to use"
-  type        = string
-  default     = "default_branch"
+variable "vcs_repo" {
+  description = "(Optional) - Map of objects taht will be used when attaching a VCS Repo to the Workspace. "
+  default     = {}
+  type = map(object({
+    identifier         = string
+    branch             = string
+    ingress_submodules = bool
+    oauth_token_id     = string
+  }))
 }
 
 variable "workspace_vcs_directory" {
   description = "Working directory to use in repo"
   type        = string
   default     = "root_directory"
-}
-
-variable "workspace_oauth_id" {
-  description = "OAuth ID from VCS connection"
-  type        = string
-  sensitive   = true
 }
 
 # Variables
