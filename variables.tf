@@ -33,12 +33,7 @@ variable "workspace_tags" {
 variable "vcs_repo" {
   description = "(Optional) - Map of objects taht will be used when attaching a VCS Repo to the Workspace. "
   default     = {}
-  type = map(object({
-    identifier         = string
-    branch             = string
-    ingress_submodules = bool
-    oauth_token_id     = string
-  }))
+  type = map(string)
 }
 
 variable "workspace_vcs_directory" {
