@@ -16,6 +16,7 @@ data "tfe_agent_pool" "this_pool" {
 resource "tfe_workspace" "this_ws" {
   name              = var.workspace_name
   organization      = data.tfe_organization.this_org.name
+  description       = var.workspace_description
   tag_names         = var.workspace_tags
   terraform_version = (var.workspace_terraform_version == "latest" ? null : var.workspace_terraform_version)
   working_directory = (var.workspace_vcs_directory == "root_directory" ? null : var.workspace_vcs_directory)
