@@ -100,6 +100,17 @@ variable "workspace_auto_apply" {
   default     = true
 }
 
+variable "remote_state" {
+  type        = bool
+  description = "(Optional) Boolean that enables the sharing of remote state between this workspace and other workspaces within the environment"
+  default     = false
+}
+
+variable "remote_state_consumers" {
+  type        = set(string)
+  description = "(Optional) Set of remote IDs of the workspaces that will consume the state of this workspace"
+}
+
 # variable "rbac" {
 #   type = bool
 #   description = "(Optional) Conditional that allows for RBAC policy to be created for the new workspaces"
