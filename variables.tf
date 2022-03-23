@@ -109,6 +109,7 @@ variable "remote_state" {
 variable "remote_state_consumers" {
   type        = set(string)
   description = "(Optional) Set of remote IDs of the workspaces that will consume the state of this workspace"
+  default     = [""]
 }
 
 # variable "rbac" {
