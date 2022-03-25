@@ -49,12 +49,6 @@ variable "variables" {
   default     = {}
 }
 
-
-variable "test_variables" {
-  description = "Map of all variables for workspace"
-  type        = object({})
-  default     = {}
-}
 # # RBAC
 # ## Workspace owner (exising org user)
 # variable "workspace_owner_email" {
