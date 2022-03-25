@@ -50,6 +50,17 @@ resource "tfe_variable" "variables" {
   hcl          = lookup(each.value, "hcl", false)
 }
 
+resource "tfe_variable" "test_variables" {
+  for_each     = var.test_variables
+  workspace_id = tfe_workspace.this_ws.id
+  key          = each.key
+  value        = each.value["value"]
+  description  = lookup(each.value, "description", null)
+  category     = lookup(each.value, "category", "terraform")
+  sensitive    = lookup(each.value, "sensitive", false)
+  hcl          = lookup(each.value, "hcl", false)
+}
+
 # RBAC
 ## Teams
 ### Workspace owner
