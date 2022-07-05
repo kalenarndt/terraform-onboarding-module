@@ -97,7 +97,7 @@ variable "workspace_agents" {
 variable "workspace_auto_apply" {
   type        = string
   description = "(Optional)  Setting if the workspace should automatically apply changes when a plan succeeds."
-  default     = true
+  default     = false
 }
 
 variable "remote_state" {
