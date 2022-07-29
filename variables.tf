@@ -84,7 +84,13 @@ variable "workspace_plan_access_emails" {
 
 variable "agent_pool_name" {
   type        = string
-  description = "(Optional) Name of the agent pool that will be created or used"
+  description = "(Optional) Name of the agent pool that will be used"
+  default     = null
+}
+
+variable "agent_pool_id" {
+  type        = string
+  description = "(Optional) ID of agent pool that will be used. Ideally used if you are building agents via another method in the run and want to form an implicit dependecy"
   default     = null
 }
 

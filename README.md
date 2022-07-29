@@ -30,7 +30,8 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_agent_pool_name"></a> [agent\_pool\_name](#input\_agent\_pool\_name) | (Optional) Name of the agent pool that will be created or used | `string` | `null` | no |
+| <a name="input_agent_pool_id"></a> [agent\_pool\_id](#input\_agent\_pool\_id) | (Optional) ID of agent pool that will be used. Ideally used if you are building agents via another method in the run and want to form an implicit dependecy | `string` | `null` | no |
+| <a name="input_agent_pool_name"></a> [agent\_pool\_name](#input\_agent\_pool\_name) | (Optional) Name of the agent pool that will be used | `string` | `null` | no |
 | <a name="input_execution_mode"></a> [execution\_mode](#input\_execution\_mode) | (Optional) Defines the execution mode of the Workspace. Defaults to remote | `string` | `"remote"` | no |
 | <a name="input_organization"></a> [organization](#input\_organization) | TFC Organization to build under | `string` | n/a | yes |
 | <a name="input_remote_state"></a> [remote\_state](#input\_remote\_state) | (Optional) Boolean that enables the sharing of remote state between this workspace and other workspaces within the environment | `bool` | `false` | no |
