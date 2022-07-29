@@ -5,7 +5,7 @@ data "tfe_organization" "this_org" {
 }
 
 data "tfe_agent_pool" "this_pool" {
-  count        = var.workspace_agents ? 1 : 0
+  count        = var.workspace_agents == true && var.agent_pool_id == null ? 1 : 0
   name         = var.agent_pool_name
   organization = data.tfe_organization.this_org.name
 }
