@@ -23,7 +23,7 @@ resource "tfe_workspace" "this_ws" {
   queue_all_runs            = false
   auto_apply                = var.workspace_auto_apply
   agent_pool_id             = var.workspace_agents == true ? data.tfe_agent_pool.this_pool[0].id : null
-  execution_mode            = var.workspace_agents == true ? "agent" : "remote"
+  execution_mode            = var.workspace_agents == true ? "agent" : var.execution_mode
   remote_state_consumer_ids = var.remote_state == true ? var.remote_state_consumers : null
 
   dynamic "vcs_repo" {

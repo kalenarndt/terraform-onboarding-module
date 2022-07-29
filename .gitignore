@@ -1,35 +1,64 @@
-# Compiled files
+# Created by https://www.toptal.com/developers/gitignore/api/terraform
+# Edit at https://www.toptal.com/developers/gitignore?templates=terraform
+
+### Terraform ###
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
 *.tfstate
-*.tfstate.backup
-*.tfstate.lock.info
+*.tfstate.*
+
+# Crash log files
+crash.log
+
+# Ignore any .tfvars files that are generated automatically for each Terraform run. Most
+# .tfvars files are managed as part of configuration and so should be included in
+# version control.
+#
+# example.tfvars
+
+# Ignore override files as they are usually used to override resources locally and so
+# are not checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Include override files you do wish to add to version control using negated pattern
+# !example_override.tf
+
+# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
+# example: *tfplan*
+
 .terraform.lock.hcl
+# End of https://www.toptal.com/developers/gitignore/api/terraform
 
-# User files
-*.tfvars
 
-# logs
-*.log
+### Packer ###
+# Cache objects
+**/packer_cache/*
 
-# Directories
-.terraform/
-.vagrant/
+# Crash log
+crash.log
 
-# SSH Keys
-*.pem
+# build logs
+**/logs/*
 
-# Backup files
-*.bak
+# For built boxes
+*.box
 
-# Ignored Terraform files
-*gitignore*.tf
+# Mac things
+*.DS_Store
 
-# Ignore Mac .DS_Store files
-.DS_Store
+### Packer Patch ###
+# ignore temporary output files
+output-*/
 
-# Ignored editor files
-*.swp
-.vscode/
+### Licenses ###
+*.license
+*.auto.tfvars
 
-# Module compiled files
-modules/**/.terraform
-modules/**/*.tfstate*
+### Local Secrets ##
+secrets.auto.tfvars
+vault_kv_secrets.yaml

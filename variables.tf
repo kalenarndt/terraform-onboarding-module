@@ -100,6 +100,12 @@ variable "workspace_auto_apply" {
   default     = false
 }
 
+variable "execution_mode" {
+  type        = string
+  description = "(Optional) Defines the execution mode of the Workspace. Defaults to remote"
+  default     = "remote"
+}
+
 variable "remote_state" {
   type        = bool
   description = "(Optional) Boolean that enables the sharing of remote state between this workspace and other workspaces within the environment"
