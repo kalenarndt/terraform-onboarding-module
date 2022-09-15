@@ -54,20 +54,39 @@ resource "tfe_variable" "variables" {
 # RBAC
 ## Teams
 ### Workspace owner
-# resource "tfe_team" "this_owners" {
-#   name         = "${var.workspace_name}-owners"
-#   organization = data.tfe_organization.this_org.name
-# }
+resource "tfe_team" "team" {
+  count        = var.rbac ? 1 : 0
+  name         = "${var.workspace_name}-owners"
+  organization = data.tfe_organization.this_org.name
+  dynamic "organization_access" {
+    for_each = var.organization_access
+    iterator = org
+    content {
+      manage_vcs_settings     = try(org.value, null)
+      manage_providers        = try(org.value, null)
+      manage_modules          = try(org.value, null)
+      manage_run_tasks        = try(org.value, null)
+      manage_workspaces       = try(org.value, null)
+      manage_policies         = try(org.value, null)
+      manage_policy_overrides = try(org.value, null)
+    }
+  }
+}
 
-# module "workspace_owner" {
-#   source = "./modules/rbac_user"
+module "workspace_owner" {
+  count            = var.rbac ? 1 : 0
+  source           = "./modules/rbac_user"
+  organization     = data.tfe_organization.this_org.name
+  workspace_id     = tfe_workspace.this_ws.id
+  team_id          = tfe_team.team[0].id
+  user_email       = var.workspace_owner_email
+  user_permissions = "admin"
+}
 
-#   organization     = data.tfe_organization.this_org.name
-#   workspace_id     = tfe_workspace.this_ws.id
-#   team_id          = tfe_team.this_owners.id
-#   user_email       = var.workspace_owner_email
-#   user_permissions = "admin"
-# }
+resource "tfe_team_token" "token" {
+  count   = var.rbac && var.rbac_token ? 1 : 0
+  team_id = tfe_team.team[0].id
+}
 
 # ### Read access team
 # resource "tfe_team" "this_read" {

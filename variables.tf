@@ -51,16 +51,44 @@ variable "variables" {
 
 # # RBAC
 # ## Workspace owner (exising org user)
-# variable "workspace_owner_email" {
-#   description = "Email for the owner of the account"
-#   type        = string
-# }
+variable "workspace_owner_email" {
+  description = "Email for the owner of the account"
+  type        = string
+  default     = ""
+}
+
+
+variable "rbac" {
+  type        = bool
+  description = "(Optional) Conditional boolean that allows for the creation for an owner team for the workspaces that will be built by this module"
+  default     = false
+}
 
 ## Additional read users (existing org user)
 variable "workspace_read_access_emails" {
   description = "Emails for the read users"
   type        = list(string)
   default     = []
+}
+
+variable "organization_access" {
+  type        = map(bool)
+  description = "Permissions that will be added for the team at the organization level"
+  default = {
+    "manage_vcs_settings"     = false
+    "manage_providers"        = false
+    "manage_modules"          = false
+    "manage_run_tasks"        = false
+    "manage_workspaces"       = false
+    "manage_policies"         = false
+    "manage_policy_overrides" = false
+  }
+}
+
+variable "rbac_token" {
+  type        = bool
+  description = "(Optional) Conditonal that outputs a team token for the team that was created"
+  default     = true
 }
 
 ## Additional write users (existing org user)
