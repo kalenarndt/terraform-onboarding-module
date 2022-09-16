@@ -74,7 +74,7 @@ variable "workspace_read_access_emails" {
 variable "organization_access" {
   type        = map(bool)
   description = "Permissions that will be added for the team at the organization level"
-  default = {}
+  default     = {}
 }
 
 variable "rbac_token" {

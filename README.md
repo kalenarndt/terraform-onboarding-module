@@ -11,16 +11,20 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_tfe"></a> [tfe](#provider\_tfe) | 0.30.2 |
+| <a name="provider_tfe"></a> [tfe](#provider\_tfe) | 0.36.1 |
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_workspace_owner"></a> [workspace\_owner](#module\_workspace\_owner) | ./modules/rbac_user | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [tfe_team.team](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/team) | resource |
+| [tfe_team_token.token](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/team_token) | resource |
 | [tfe_variable.variables](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
 | [tfe_workspace.this_ws](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/workspace) | resource |
 | [tfe_agent_pool.this_pool](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/data-sources/agent_pool) | data source |
@@ -33,6 +37,9 @@ No modules.
 | <a name="input_agent_pool_name"></a> [agent\_pool\_name](#input\_agent\_pool\_name) | (Optional) Name of the agent pool that will be created or used | `string` | `null` | no |
 | <a name="input_execution_mode"></a> [execution\_mode](#input\_execution\_mode) | (Optional) Defines the execution mode of the Workspace. Defaults to remote | `string` | `"remote"` | no |
 | <a name="input_organization"></a> [organization](#input\_organization) | TFC Organization to build under | `string` | n/a | yes |
+| <a name="input_organization_access"></a> [organization\_access](#input\_organization\_access) | Permissions that will be added for the team at the organization level | `map(bool)` | `{}` | no |
+| <a name="input_rbac"></a> [rbac](#input\_rbac) | (Optional) Conditional boolean that allows for the creation for an owner team for the workspaces that will be built by this module | `bool` | `false` | no |
+| <a name="input_rbac_token"></a> [rbac\_token](#input\_rbac\_token) | (Optional) Conditonal that outputs a team token for the team that was created | `bool` | `true` | no |
 | <a name="input_remote_state"></a> [remote\_state](#input\_remote\_state) | (Optional) Boolean that enables the sharing of remote state between this workspace and other workspaces within the environment | `bool` | `false` | no |
 | <a name="input_remote_state_consumers"></a> [remote\_state\_consumers](#input\_remote\_state\_consumers) | (Optional) Set of remote IDs of the workspaces that will consume the state of this workspace | `set(string)` | <pre>[<br>  ""<br>]</pre> | no |
 | <a name="input_variables"></a> [variables](#input\_variables) | Map of all variables for workspace | `map(any)` | `{}` | no |
@@ -41,6 +48,7 @@ No modules.
 | <a name="input_workspace_auto_apply"></a> [workspace\_auto\_apply](#input\_workspace\_auto\_apply) | (Optional)  Setting if the workspace should automatically apply changes when a plan succeeds. | `string` | `false` | no |
 | <a name="input_workspace_description"></a> [workspace\_description](#input\_workspace\_description) | Description of workspace | `string` | `""` | no |
 | <a name="input_workspace_name"></a> [workspace\_name](#input\_workspace\_name) | Name of the workspace to create | `string` | n/a | yes |
+| <a name="input_workspace_owner_email"></a> [workspace\_owner\_email](#input\_workspace\_owner\_email) | Email for the owner of the account | `string` | `""` | no |
 | <a name="input_workspace_plan_access_emails"></a> [workspace\_plan\_access\_emails](#input\_workspace\_plan\_access\_emails) | Emails for the plan users | `list(string)` | `[]` | no |
 | <a name="input_workspace_read_access_emails"></a> [workspace\_read\_access\_emails](#input\_workspace\_read\_access\_emails) | Emails for the read users | `list(string)` | `[]` | no |
 | <a name="input_workspace_tags"></a> [workspace\_tags](#input\_workspace\_tags) | Tags to apply to workspace | `list(string)` | `[]` | no |
@@ -52,6 +60,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_team_token"></a> [team\_token](#output\_team\_token) | Token for the team that was created as a part of the run |
 | <a name="output_workspace_id"></a> [workspace\_id](#output\_workspace\_id) | ID of managed workspace |
 | <a name="output_workspace_name"></a> [workspace\_name](#output\_workspace\_name) | Name of managed workspace |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

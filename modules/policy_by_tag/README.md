@@ -9,7 +9,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_tfe"></a> [tfe](#provider\_tfe) | 0.28.1 |
+| <a name="provider_tfe"></a> [tfe](#provider\_tfe) | 0.36.1 |
 
 ## Modules
 

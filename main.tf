@@ -72,12 +72,12 @@ resource "tfe_team" "team" {
   name         = "${var.workspace_name}-aft"
   organization = data.tfe_organization.this_org.name
   organization_access {
-    manage_vcs_settings       = local.organization_access["manage_vcs_settings"]
+    manage_vcs_settings     = local.organization_access["manage_vcs_settings"]
     manage_providers        = local.organization_access["manage_providers"]
     manage_modules          = local.organization_access["manage_modules"]
     manage_run_tasks        = local.organization_access["manage_run_tasks"]
-    manage_workspaces         = local.organization_access["manage_workspaces"]
-    manage_policies           = local.organization_access["manage_policies"]
+    manage_workspaces       = local.organization_access["manage_workspaces"]
+    manage_policies         = local.organization_access["manage_policies"]
     manage_policy_overrides = local.organization_access["manage_policy_overrides"]
   }
 }
