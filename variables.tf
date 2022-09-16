@@ -74,15 +74,7 @@ variable "workspace_read_access_emails" {
 variable "organization_access" {
   type        = map(bool)
   description = "Permissions that will be added for the team at the organization level"
-  default = {
-    "manage_vcs_settings"     = false
-    "manage_providers"        = false
-    "manage_modules"          = false
-    "manage_run_tasks"        = false
-    "manage_workspaces"       = false
-    "manage_policies"         = false
-    "manage_policy_overrides" = false
-  }
+  default = {}
 }
 
 variable "rbac_token" {
@@ -104,8 +96,6 @@ variable "workspace_plan_access_emails" {
   type        = list(string)
   default     = []
 }
-
-
 
 
 ## Kalen Additions
@@ -145,9 +135,3 @@ variable "remote_state_consumers" {
   description = "(Optional) Set of remote IDs of the workspaces that will consume the state of this workspace"
   default     = [""]
 }
-
-# variable "rbac" {
-#   type = bool
-#   description = "(Optional) Conditional that allows for RBAC policy to be created for the new workspaces"
-#   default = true
-# }

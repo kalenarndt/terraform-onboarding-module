@@ -50,26 +50,35 @@ resource "tfe_variable" "variables" {
   hcl          = lookup(each.value, "hcl", false)
 }
 
+locals {
+  default_org_access = {
+    "manage_vcs_settings"     = false
+    "manage_providers"        = false
+    "manage_modules"          = false
+    "manage_run_tasks"        = false
+    "manage_workspaces"       = false
+    "manage_policies"         = false
+    "manage_policy_overrides" = false
+  }
+
+  organization_access = merge(local.default_org_access, var.organization_access)
+}
 
 # RBAC
 ## Teams
 ### Workspace owner
 resource "tfe_team" "team" {
   count        = var.rbac ? 1 : 0
-  name         = "${var.workspace_name}-owners"
+  name         = "${var.workspace_name}-aft"
   organization = data.tfe_organization.this_org.name
-  dynamic "organization_access" {
-    for_each = var.organization_access
-    iterator = org
-    content {
-      manage_vcs_settings     = try(org.value, null)
-      manage_providers        = try(org.value, null)
-      manage_modules          = try(org.value, null)
-      manage_run_tasks        = try(org.value, null)
-      manage_workspaces       = try(org.value, null)
-      manage_policies         = try(org.value, null)
-      manage_policy_overrides = try(org.value, null)
-    }
+  organization_access {
+    manage_vcs_settings       = local.organization_access["manage_vcs_settings"]
+    manage_providers        = local.organization_access["manage_providers"]
+    manage_modules          = local.organization_access["manage_modules"]
+    manage_run_tasks        = local.organization_access["manage_run_tasks"]
+    manage_workspaces         = local.organization_access["manage_workspaces"]
+    manage_policies           = local.organization_access["manage_policies"]
+    manage_policy_overrides = local.organization_access["manage_policy_overrides"]
   }
 }
 
